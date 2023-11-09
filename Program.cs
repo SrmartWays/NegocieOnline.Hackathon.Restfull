@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Builder; // Adicionado
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Serilog.Events;
-using System;
 
 namespace NegocieOnline.Hackathon.Restfull
 {

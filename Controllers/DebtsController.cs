@@ -31,5 +31,14 @@ namespace NegocieOnline.Hackathon.Restfull.Controllers
                 return NotFound("Customer not found");
             }
         }
+
+        [HttpPost("addDebt")]
+        public async Task<ActionResult<Debt>> AddDebt(Debt debt)
+        {
+            _context.Debts.Add(debt);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetDebts), new { customerId = debt.CustomerId }, debt);
+        }
     }
 }
