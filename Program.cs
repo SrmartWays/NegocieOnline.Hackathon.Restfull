@@ -24,7 +24,9 @@ namespace NegocieOnline.Hackathon.Restfull
             try
             {
                 Log.Information("Starting up");
+#pragma warning disable CS0618 // O tipo ou membro é obsoleto
                 CreateHostBuilder(args).Build().Run();
+#pragma warning restore CS0618 // O tipo ou membro é obsoleto
             }
             catch (Exception ex)
             {
