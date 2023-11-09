@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Builder; // Adicionado
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Serilog.Events;
+using System;
 
 namespace NegocieOnline.Hackathon.Restfull
 {
@@ -31,7 +35,7 @@ namespace NegocieOnline.Hackathon.Restfull
                 Log.CloseAndFlush();
             }
         }
-
+        [Obsolete("UseSerilog(IWebHostBuilder) is obsolete, prefer UseSerilog(IHostBuilder)")]
         public static IWebHostBuilder CreateHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -49,6 +53,15 @@ namespace NegocieOnline.Hackathon.Restfull
                     services.AddSwaggerGen(c =>
                     {
                         c.SwaggerDoc("v1", new OpenApiInfo { Title = "API Name", Version = "v1" });
+                    });
+
+                    // Adicionando política CORS
+                    services.AddCors(options =>
+                    {
+                        options.AddPolicy("AllowAllOrigins",
+                            builder => builder.AllowAnyOrigin()
+                                              .AllowAnyMethod()
+                                              .AllowAnyHeader());
                     });
                 })
                 .Configure(app =>
@@ -68,6 +81,9 @@ namespace NegocieOnline.Hackathon.Restfull
                     {
                         app.UseHsts();
                     }
+
+                    // Habilitando a política CORS
+                    app.UseCors("AllowAllOrigins");
 
                     app.UseHttpsRedirection();
                     app.UseRouting();
