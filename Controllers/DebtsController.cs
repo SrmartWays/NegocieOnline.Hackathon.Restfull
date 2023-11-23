@@ -19,7 +19,7 @@ namespace NegocieOnline.Hackathon.Restfull.Controllers
         public async Task<ActionResult<IEnumerable<Debt>>> GetDebts(string customerId)
         {
             var debts = await _context.Debts
-                .Where(d => d.CustomerId == customerId)
+                .Where(d => d.CustomerId == customerId && !d.isPaid) 
                 .ToListAsync();
 
             if (debts.Count > 0)
@@ -28,7 +28,7 @@ namespace NegocieOnline.Hackathon.Restfull.Controllers
             }
             else
             {
-                return NotFound("Customer not found");
+                return NotFound("Customer not found or no unpaid debts");
             }
         }
 

@@ -11,5 +11,7 @@ namespace NegocieOnline.Hackathon.Restfull.Models
         public decimal Discount { get; set; }
         public decimal TotalValue { get; set; }
         public int PaymentId { get; set; }
+        public bool isPaid { get; set; }
+
     }
 }
