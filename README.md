@@ -6,15 +6,17 @@ CREATE TABLE Debts (
     discount DECIMAL(10, 2),        -- Desconto da dívida
     totalValue DECIMAL(10, 2),      -- Valor total da dívida com o desconto
     customerId VARCHAR(255),        -- Código do cliente (CPF) como string
-    paymentId INT                    -- Código do pagamento
+    paymentId INT,                   -- Código do pagamento
+    isPaid TINYINT                   -- Indicador se a dívida foi paga (1 para pago, 0 para não pago)
 );
+
 ```
 ## Exemplo de povoamento da tabela
 ```sql
-INSERT INTO Debts (dealId, value, discount, totalValue, customerId, paymentId)
+INSERT INTO Debts (dealId, value, discount, totalValue, customerId, paymentId, isPaid)
 VALUES
-    (1, 1000.00, 200.00, 800.00, '12345678901', 101),
-    (2, 500.00, 100.00, 400.00, '12345678902', 102);
+    (1, 1000.00, 200.00, 800.00, '12345678901', 101, 0),
+    (2, 500.00, 100.00, 400.00, '12345678902', 102, 0);
 ```
 
  ## Como configurar a string de conexão do banco de dados com a api.
