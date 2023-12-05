@@ -18,14 +18,14 @@ namespace NegocieOnline.Hackathon.Restfull.Controllers
         }
 
         [HttpPost("setDeal")]
-        public async Task<ActionResult> SetDeal(int dealId, bool isPaid)
+        public async Task<ActionResult> SetDeal(string customerId, bool isPaid)
         {
             Debt debt = null;
 
             try
             {
                 debt = await _context.Debts
-                    .FirstOrDefaultAsync(d => d.DealId == dealId);
+                    .FirstOrDefaultAsync(d => d.CustomerId == customerId);
 
                 if (debt != null)
                 {
@@ -34,7 +34,7 @@ namespace NegocieOnline.Hackathon.Restfull.Controllers
 
                     var updatedDebt = await _context.Debts
                         .AsNoTracking()
-                        .FirstOrDefaultAsync(d => d.DealId == dealId && d.isPaid == isPaid);
+                        .FirstOrDefaultAsync(d => d.CustomerId == customerId && d.isPaid == isPaid);
 
                     if (updatedDebt != null)
                     {
@@ -47,7 +47,7 @@ namespace NegocieOnline.Hackathon.Restfull.Controllers
                 }
                 else
                 {
-                    return NotFound("Debt not found for the specified dealId");
+                    return NotFound("Debt not found for the specified customerId");
                 }
             }
             catch (DbUpdateConcurrencyException ex)
@@ -68,7 +68,7 @@ namespace NegocieOnline.Hackathon.Restfull.Controllers
 
                     var updatedDebt = await _context.Debts
                         .AsNoTracking()
-                        .FirstOrDefaultAsync(d => d.DealId == dealId && d.isPaid == isPaid);
+                        .FirstOrDefaultAsync(d => d.CustomerId == customerId && d.isPaid == isPaid);
 
                     if (updatedDebt != null)
                     {
@@ -81,7 +81,7 @@ namespace NegocieOnline.Hackathon.Restfull.Controllers
                 }
                 else
                 {
-                    return NotFound("Debt not found for the specified dealId");
+                    return NotFound("Debt not found for the specified customerId");
                 }
             }
             catch (Exception ex)
